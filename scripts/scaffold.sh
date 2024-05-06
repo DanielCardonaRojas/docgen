@@ -10,6 +10,7 @@ fi
 
 mkdir -p $DOC_CONTEXT/$DOC_TYPE/templates
 mkdir -p $DOC_CONTEXT/$DOC_TYPE/data
+mkdir -p $DOC_CONTEXT/$DOC_TYPE/scripts
 
 echo "created folder structure at: $DOC_CONTEXT/$DOC_TYPE"
 
