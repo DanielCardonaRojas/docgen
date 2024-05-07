@@ -1,45 +1,39 @@
 # Generate documents 
 
-Create documents like invoices from structured data in formats such as json.
+Create any type of document from structured data in formats such as json.
 
-Output files can be any format supported by pandoc, not just markdown and html.
+Use tools like pandoc to post process files and convert to other formats.
 
 ## Requirements
 
 - [gomplate](https://docs.gomplate.ca/)
 - [gum](https://github.com/charmbracelet/gum)
-- [pandoc](https://pandoc.org/)
+- [fzf](https://github.com/junegunn/fzf)
 
 ## Usage
 
-Create a folder with the following structure in `~/.config/docgen` for the document type
-you want to create. This can be achieved running: `make scaffold`
+Run the docgen cli:
 
+```
+docgen
+```
+
+This will list all the available document generators with fzf and other options to choose from.
+select you're preferred configuration and a file should be generated in your current working directory or to `stdout.
+
+## Using DocGenSpec (document generator)
+
+`DocGenSpec`s provide all necessary files to generate a specialized document.
+
+Clone or create a [DocGenSpec](https://github.com/DanielCardonaRojas/DocGenSpec).
 
 ```sh
-invoice
-├── data
-│   └── company1.json
-│   └── company2.json
-└── templates
-    ├── bold.html
-    └── bold.md
-
+./scripts/clone.sh GITHUB_URL
 ```
 
-**Generate doc**
-
-Once you have created a template and values to populate it (`templates/` and `data/` respectively), then run.
+or 
 
 ```sh
-make generate
+./scripts/scaffold.sh SPEC_NAME
 ```
-
-this will run an interactive selections to generate the document you want.
-
-
-```
-
-
-
 
