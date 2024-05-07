@@ -38,18 +38,8 @@ make generate
 this will run an interactive selections to generate the document you want.
 
 
-**Running anywhere**
-
-Either add the repo clone to you `$PATH` or create an alias
-
-```sh
-make -C ~/development/docgen
-
-# or
-export DOCGEN_PATH=~/PATH/TO/CLONE/docgen
-make -C $DOCGEN_PATH
-
 ```
+
 
 
 
