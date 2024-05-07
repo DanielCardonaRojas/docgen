@@ -6,4 +6,7 @@ generate:
 scaffold:
 	@bash ./scripts/scaffold.sh
 
+clone:
+	@bash ./scripts/clone.sh
+
 
