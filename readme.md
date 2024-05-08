@@ -37,3 +37,7 @@ or
 ./scripts/scaffold.sh SPEC_NAME
 ```
 
+## Environment variable
+
+DocGen will install and search for DocGenSpecs at `$DOCGEN_PATH` which defaults to `$HOME/.config/docgen` if not set.
+

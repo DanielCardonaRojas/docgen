@@ -4,7 +4,7 @@
 default_clone_dir="$HOME/.config/docgen/"
 
 # Define the directory where you want to clone the repository, using environment variable if set, otherwise default
-clone_dir="${DOCGEN_CLONE_DIR:-$default_clone_dir}"
+clone_dir="${DOCGEN_PATH:-$default_clone_dir}"
 
 # Check if the directory exists, if not, create it
 if [ ! -d "$clone_dir" ]; then
