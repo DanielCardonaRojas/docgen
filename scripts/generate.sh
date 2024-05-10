@@ -39,6 +39,21 @@ fi
 
 # echo "Spec: $SPEC_NAME file: $FILENAME current dir: $CURRENT_DIR"
 
+
+# Choose the data file in case more than one is present
+EXAMPLE_FILE_PATH=$(find $BASE_DIR/data -type f -name "example.*")
+EXAMPLE_FILE=$(basename "$EXAMPLE_FILE_PATH")
+EXAMPLE_FILE_EXTENSION="${EXAMPLE_FILE##*.}"
+
+DATA_FILES=$(ls $BASE_DIR/data | grep -v -e "example" | grep "$EXAMPLE_FILE_EXTENSION")
+DATA_FILES_COUNT=$(echo "$DATA_FILES" | wc -l | tr -s ' ')
+
+DATA_FILE="default.$EXAMPLE_FILE_EXTENSION"
+
+if [ "$DATA_FILES_COUNT" -gt 1 ]; then
+    DATA_FILE=$(echo "$DATA_FILES" | tr '\n' ' ' | xargs -L 1 gum choose --header "Pick a data file")
+fi
+
 # WRITE TO A SPECIFIC FILE NAME OR TO STDOUT
 
 if [ -n "$FILENAME" ]; then
