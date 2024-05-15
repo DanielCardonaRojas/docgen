@@ -1,2 +1,5 @@
-~/development/docgen/scripts/generate.sh
+#!/bin/bash
+
+DIR=$(realpath $0 | xargs dirname)
+$DIR/scripts/generate.sh
 
