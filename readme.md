@@ -41,3 +41,45 @@ or
 
 DocGen will install and search for DocGenSpecs at `$DOCGEN_PATH` which defaults to `$HOME/.config/docgen` if not set.
 
+
+## System
+
+```mermaid
+graph TD
+    subgraph DocGen System
+        subgraph DocGenSpec
+            Templates[Templates]
+            DataFiles[Data Files]
+            Scripts[Scripts]
+        end
+
+        subgraph Index
+            IndexData[DocGenSpecs]
+        end
+
+        subgraph docgen
+            gomplate
+        end
+
+        subgraph FileSystem
+            CustomData[Custom Data Dir]
+            DownloadData[Download DocSpec Dir]
+        end
+
+
+        docgen --->|Downloads| DocGenSpec
+        docgen --->|Creates| CustomData
+        DataFiles <---|Mirrors| CustomData
+
+        Index --->|Stores| DocGenSpec
+        docgen --->|Searches| Index
+
+
+        Documents[Generated Documents]
+
+        Templates --> Documents
+        DataFiles --> Documents
+        Scripts --> Documents
+    end
+
+```
