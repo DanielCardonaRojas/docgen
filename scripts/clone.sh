@@ -1,10 +1,12 @@
 #!/bin/bash
 
 # Define the default directory where you want to clone the repository
-default_clone_dir="$HOME/.config/docgen/"
+default_doc_gen_spec_dir="$HOME/.local/share/docgen/"
+default_doc_gen_dir="$HOME/.config/docgen/"
 
 # Define the directory where you want to clone the repository, using environment variable if set, otherwise default
-clone_dir="${DOCGEN_PATH:-$default_clone_dir}"
+clone_dir="${DOCGEN_SPEC_PATH:-$default_doc_gen_spec_dir}"
+doc_gen_dir="${DOCGEN_PATH:-$default_doc_gen_dir}"
 
 # Check if the directory exists, if not, create it
 if [ ! -d "$clone_dir" ]; then
