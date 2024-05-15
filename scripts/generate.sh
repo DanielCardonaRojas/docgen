@@ -3,7 +3,7 @@
 set -e
 
 # CHECK ENVIRONMENT VARIABLE DOCGEN_PATH OR DEFAULTS TO ~/.CONFIG/DOCGEN
-DOC_CONTEXT="${DOCGEN_PATH:-$HOME/.config/docgen}"
+DOC_CONTEXT="${DOCGEN_SPEC_PATH:-$HOME/.local/share/docgen}"
 
 # PICK THE DOCUMENT YOU ARE TRYING TO GENERATE E.G INVOICE, CV, REPORT
 # THIS WILL DEPEND ON THE FOLDER STRUCTURE CREATED UNDER THE CONFIGURATION DIRECTORY
@@ -57,9 +57,10 @@ fi
 # WRITE TO A SPECIFIC FILE NAME OR TO STDOUT
 
 if [ -n "$FILENAME" ]; then
-    gomplate --config="$BASE_DIR/configs/$CONFIG_FILE" -o - > "$CURRENT_DIR/$FILENAME"
+    echo "Writing to: $CURRENT_DIR/$FILENAME"
+    gomplate --config="$BASE_DIR/configs/$CONFIG_FILE" -d data="$BASE_DIR/data/$DATA_FILE" -o - > "$CURRENT_DIR/$FILENAME"
 else
-    gomplate --config="$BASE_DIR/configs/$CONFIG_FILE" -o -
+    gomplate --config="$BASE_DIR/configs/$CONFIG_FILE" -d data="$BASE_DIR/data/$DATA_FILE" -o -
 fi
 
 
