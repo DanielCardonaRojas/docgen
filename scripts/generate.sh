@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# The subcommand that generates new documents.
+
 set -e
 
 # CHECK ENVIRONMENT VARIABLE DOCGEN_PATH OR DEFAULTS TO ~/.CONFIG/DOCGEN

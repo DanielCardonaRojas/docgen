@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# The subcommand that downloads a DocGenSpec to generate new types of documents.
+
 # Define the default directory where you want to clone the repository
 default_doc_gen_spec_dir="$HOME/.local/share/docgen/"
 default_doc_gen_dir="$HOME/.config/docgen/"

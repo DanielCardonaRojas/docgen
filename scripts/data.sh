@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# This script creates new data file to populate a template.
+# The subcommand that create new data files based on examples for the template
+# to populate templates with custom information.
 
 
 DOC_GEN_SPEC_DIR="${DOCGEN_SPEC_PATH:-$HOME/.local/share/docgen}"
