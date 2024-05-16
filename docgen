@@ -1,5 +1,21 @@
 #!/bin/bash
 
 DIR=$(realpath $0 | xargs dirname)
-$DIR/scripts/generate.sh
+COMMAND=$1
+SCRIPTS_DIR="$DIR/scripts"
+SCRIPT="$SCRIPTS_DIR/$COMMAND.sh"
 
+shift # Shift the arguments so that $@ contains the remaining arguments
+
+# Check if the command script exists in the commands directory
+if [[ -x "$SCRIPT" ]]; then
+  "$SCRIPT" "$@"
+else
+  echo "Error: '$COMMAND' is not a valid command."
+  echo "Available commands:"
+  for cmd in "$SCRIPTS_DIR/"*; do
+    script_name=$(basename "$cmd")
+    echo "  ${script_name%.*}"
+  done
+  exit 1
+fi
