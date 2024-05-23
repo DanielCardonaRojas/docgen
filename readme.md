@@ -10,6 +10,13 @@ Use tools like pandoc to post process files and convert to other formats.
 - [gum](https://github.com/charmbracelet/gum)
 - [fzf](https://github.com/junegunn/fzf)
 
+## Installation
+
+```sh
+git -C ~/.local/bin/ clone https://github.com/DanielCardonaRojas/docgen 
+ln -s ~/.local/bin/docgen/docgen ~/.local/bin/docgen
+```
+
 ## Usage
 
 Run the docgen cli:
@@ -26,6 +33,7 @@ select you're preferred configuration and a file should be generated in your cur
 `DocGenSpec`s provide all necessary files to generate a specialized document.
 
 Clone or create a [DocGenSpec](https://github.com/DanielCardonaRojas/DocGenSpec).
+
 
 ```sh
 ./scripts/clone.sh GITHUB_URL
