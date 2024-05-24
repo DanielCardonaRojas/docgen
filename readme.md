@@ -14,7 +14,7 @@ Use tools like pandoc to post process files and convert to other formats.
 
 ```sh
 git -C ~/.local/bin/ clone https://github.com/DanielCardonaRojas/docgen 
-ln -s ~/.local/bin/docgen/docgen ~/.local/bin/docgen
+ln -s ~/.local/bin/docgen/docgen /usr/local/bin
 ```
 
 ## Usage
