@@ -2,7 +2,7 @@
 
 DIR=$(realpath $0 | xargs dirname)
 COMMAND=$1
-SCRIPTS_DIR="$DIR/scripts"
+SCRIPTS_DIR="$DIR/commands"
 SCRIPT="$SCRIPTS_DIR/$COMMAND.sh"
 
 shift # Shift the arguments so that $@ contains the remaining arguments
