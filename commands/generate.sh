@@ -20,7 +20,7 @@ CONFIG_FILE=$(ls $BASE_DIR/configs | head -n 1)
 CONFIG_FILE_COUNT=$(ls $BASE_DIR/configs | wc -l | tr -s ' ')
 
 if [ "$CONFIG_FILE_COUNT" -gt 1 ]; then
-    CONFIG_FILE=$(ls $BASE_DIR/configs | tr '\n' ' ' | xargs -L 1 gum choose --header "Pick a config")
+	CONFIG_FILE=$(ls $BASE_DIR/configs | tr '\n' ' ' | xargs -L 1 gum choose --header "Pick a config")
 fi
 
 CURRENT_DIR="$(pwd)"
@@ -31,44 +31,54 @@ cd "$BASE_DIR"
 SPEC_NAME=$(basename "$BASE_DIR")
 FILENAME="${SPEC_NAME%Spec}"
 
-
-
 if [ -f "$BASE_DIR/scripts/doc_gen_file_name.sh" ]; then
-    FILENAME=$(bash "$BASE_DIR/scripts/doc_gen_file_name.sh")
+	FILENAME=$(bash "$BASE_DIR/scripts/doc_gen_file_name.sh")
 else
-    echo "No automatic output file name for template"
+	echo "No automatic output file name for template"
 fi
 
 # echo "Spec: $SPEC_NAME file: $FILENAME current dir: $CURRENT_DIR"
 
-
 # Choose the data file in case more than one is present
+
 EXAMPLE_FILE_PATH=$(find $BASE_DIR/data -type f -name "example.*")
 EXAMPLE_FILE=$(basename "$EXAMPLE_FILE_PATH")
 EXAMPLE_FILE_EXTENSION="${EXAMPLE_FILE##*.}"
 
-DATA_FILES=$(ls $BASE_DIR/data | grep -v -e "example" | grep "$EXAMPLE_FILE_EXTENSION")
+#DATA_FILES=$(ls $BASE_DIR/data | grep -v -e "example" | grep "$EXAMPLE_FILE_EXTENSION")
+CUSTOM_DATAFILES_PATH="$HOME/.config/docgen/$SPEC_NAME/data"
+DATA_FILES_PATH="$BASE_DIR/data"
+
+# if custom data files path has files assign to DATA_FILES
+if [ -n "$(find $CUSTOM_DATAFILES_PATH -type f -name "*.$EXAMPLE_FILE_EXTENSION" -print -quit)" ]; then
+	DATA_FILES=$(ls $CUSTOM_DATAFILES_PATH)
+	DATA_FILES_PATH="$CUSTOM_DATAFILES_PATH"
+else
+	echo "No custom data files found using template default data"
+	DATA_FILES="$BASE_DIR/data"
+	DATA_FILES=$(ls $BASE_DIR/data | grep -v -e "example" | grep "$EXAMPLE_FILE_EXTENSION")
+fi
+
 DATA_FILES_COUNT=$(echo "$DATA_FILES" | wc -l | tr -s ' ')
 
 DATA_FILE="default.$EXAMPLE_FILE_EXTENSION"
 
 if [ "$DATA_FILES_COUNT" -gt 1 ]; then
-    DATA_FILE=$(echo "$DATA_FILES" | tr '\n' ' ' | xargs -L 1 gum choose --header "Pick a data file")
+	DATA_FILE=$(echo "$DATA_FILES" | tr '\n' ' ' | xargs -L 1 gum choose --header "Pick a data file")
 fi
 
 # WRITE TO A SPECIFIC FILE NAME OR TO STDOUT
 
 if [ -n "$FILENAME" ]; then
-    echo "Writing to: $CURRENT_DIR/$FILENAME"
-    gomplate --config="$BASE_DIR/configs/$CONFIG_FILE" -d data="$BASE_DIR/data/$DATA_FILE" -o - > "$CURRENT_DIR/$FILENAME"
+	echo "Writing to: $CURRENT_DIR/$FILENAME"
+	gomplate --config="$BASE_DIR/configs/$CONFIG_FILE" -d data="$DATA_FILES_PATH/$DATA_FILE" -o - >"$CURRENT_DIR/$FILENAME"
 else
-    gomplate --config="$BASE_DIR/configs/$CONFIG_FILE" -d data="$BASE_DIR/data/$DATA_FILE" -o -
+	gomplate --config="$BASE_DIR/configs/$CONFIG_FILE" -d data="$DATA_FILES_PATH/$DATA_FILE" -o -
 fi
-
 
 # CLEANUP
 if [ -f "$BASE_DIR/scripts/doc_gen_cleanup.sh" ]; then
-    bash "$BASE_DIR/scripts/doc_gen_cleanup.sh"
+	bash "$BASE_DIR/scripts/doc_gen_cleanup.sh"
 else
-    echo "No cleanup required"
+	echo "No cleanup required"
 fi
